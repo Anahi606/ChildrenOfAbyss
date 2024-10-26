@@ -41,13 +41,12 @@ public class BossOne : MonoBehaviour
         }
     }
     private void Muerte()
-        {
-            Destroy(gameObject);
-        }
+    {
+        Destroy(gameObject);
+    }
     public void MirarJugador()
     {
-        if ((jugador.position.x > transform.position.x && !mirandoDerecha) ||
-            (jugador.position.x < transform.position.x && mirandoDerecha))
+        if ((jugador.position.x > transform.position.x && !mirandoDerecha) || (jugador.position.x < transform.position.x && mirandoDerecha))
         {
             mirandoDerecha = !mirandoDerecha;
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y + 180, 0);
