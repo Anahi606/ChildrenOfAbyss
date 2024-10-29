@@ -137,9 +137,10 @@ GameObject:
   - component: {fileID: 132706958}
   - component: {fileID: 132706957}
   - component: {fileID: 132706959}
-  m_Layer: 0
+  - component: {fileID: 132706960}
+  m_Layer: 6
   m_Name: Necromancer
-  m_TagString: Untagged
+  m_TagString: Enemigo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -205,11 +206,12 @@ Transform:
   m_GameObject: {fileID: 132706952}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.38, y: -2.61, z: 0}
+  m_LocalPosition: {x: -2.38, y: -2.61, z: 88.92}
   m_LocalScale: {x: 2.7732375, y: 2.7732375, z: 2.7732375}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1328945158}
+  - {fileID: 1979188301}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &132706955
@@ -340,6 +342,20 @@ MonoBehaviour:
   AttackController: {fileID: 1328945158}
   radioAtaque: 0.5
   "da\xF1oAtaque": 20
+--- !u!114 &132706960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132706952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1db6c2ed282c09345a05f8d99778dcfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 1324840900948427110, guid: 343029cd18f08774192f0a362a9867db, type: 3}
+  bulletSpeed: 5
 --- !u!1 &145453778
 GameObject:
   m_ObjectHideFlags: 0
@@ -724,7 +740,7 @@ GameObject:
   - component: {fileID: 796133257}
   m_Layer: 0
   m_Name: GroundCollider
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1003,7 +1019,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1328945158}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AttackController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1467,6 +1483,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1979188300
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1979188301}
+  m_Layer: 6
+  m_Name: Hazard Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1979188301
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1979188300}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 132706954}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ public class BossOne : MonoBehaviour
     public Rigidbody2D rb2D;
     public Transform jugador;
     private bool mirandoDerecha = true;
+    private EnemyShoot enemyShoot;
 
     [Header("Vida")]
     [SerializeField] private float vida;
@@ -24,6 +25,7 @@ public class BossOne : MonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
         //barraDeVida.InicializarBarraDeVida(vida);
         jugador = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        enemyShoot = GetComponent<EnemyShoot>();
     }
     private void Update()
     {
@@ -55,6 +57,9 @@ public class BossOne : MonoBehaviour
 
     public void Ataque()
     {
+        // Activar el método Shoot de EnemyShoot
+        enemyShoot?.Shoot();
+
         Collider2D[] objetos = Physics2D.OverlapCircleAll(AttackController.position, radioAtaque);
 
         foreach (Collider2D collision in objetos)
