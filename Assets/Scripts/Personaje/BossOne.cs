@@ -9,6 +9,7 @@ public class BossOne : MonoBehaviour, IDamagable
     public Transform jugador;
     private bool mirandoDerecha = true;
     private EnemyShoot enemyShoot;
+    private SpriteRenderer sp;
 
     [Header("Vida")]
     [SerializeField] private float health;
@@ -30,6 +31,7 @@ public class BossOne : MonoBehaviour, IDamagable
         rb2D = GetComponent<Rigidbody2D>();
         jugador = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         enemyShoot = GetComponent<EnemyShoot>();
+        sp = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -58,11 +60,18 @@ public class BossOne : MonoBehaviour, IDamagable
         if (isDead) return;
 
         health -= daño;
+        StartCoroutine(FlashWhite());
         if (health <= 0)
         {
             isDead = true;
             animator.SetTrigger("Death");
         }
+    }
+    private IEnumerator FlashWhite()
+    {
+        sp.color = Color.black;
+        yield return new WaitForSeconds(0.1f);
+        sp.color = Color.white;
     }
     public float GetHealth()
     {

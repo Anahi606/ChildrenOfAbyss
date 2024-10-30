@@ -9,7 +9,7 @@ public class HeroKnight : MonoBehaviour {
     [SerializeField] bool       m_noBlood = false;
     [SerializeField] GameObject m_slideDust;
 
-    [Header("Deflect Settings")]
+    [Header("Block Settings")]
     [SerializeField] private Transform deflectRange;
     [SerializeField] private float deflectRadius = 1.5f;
 

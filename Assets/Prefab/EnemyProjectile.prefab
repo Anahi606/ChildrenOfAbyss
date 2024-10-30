@@ -161,5 +161,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88f764786b9521e4b8c69de63739a676, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  "da\xF1o": 5
+  "da\xF1o": 10
   <ReturnSpeed>k__BackingField: 10
