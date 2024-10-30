@@ -12,6 +12,7 @@ public class FightPlayer : MonoBehaviour, IDamagable
     private Animator animator;
     [SerializeField] GameObject blood;
     [SerializeField] float hitflashSpeed;
+    [SerializeField] private HealthBar healthBar;
     private bool isInvincible = false;
     bool restoreTime;
     float restoreTimeSpeed;
@@ -41,6 +42,7 @@ public class FightPlayer : MonoBehaviour, IDamagable
     {
         animator = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
+        healthBar.InicializarBarraDeVida(health);
     }
 
     public void TomarDaño(float daño)
@@ -48,6 +50,7 @@ public class FightPlayer : MonoBehaviour, IDamagable
         if (!isInvincible && !isDead)
         {
             health -= daño;
+            healthBar.CambiarVidaActual(health);
             StartCoroutine(StopTakingDamage());
 
             if (health <= 0)
