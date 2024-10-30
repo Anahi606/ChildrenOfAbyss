@@ -5,9 +5,23 @@ using UnityEngine;
 public class EnemyShoot : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D bulletPrefab;
-    [SerializeField] private float bulletSpeed = 10f;
+    [SerializeField] private float bulletSpeed = 15f;
+    [SerializeField] private float timeBtwAttacks = 1f;
+
+    private float shootTimer;
 
     private Collider2D coll;
+
+    private void Update()
+    {
+        shootTimer = Time.deltaTime;
+        if (shootTimer >= timeBtwAttacks)
+        {
+            shootTimer = 0;
+
+            Shoot();
+        }
+    }
 
     private void Start()
     {

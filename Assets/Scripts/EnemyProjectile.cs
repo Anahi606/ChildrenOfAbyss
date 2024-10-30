@@ -2,30 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyProjectile : MonoBehaviour
+public class EnemyProjectile : MonoBehaviour, IDeflectable
 {
     [SerializeField] private float daño = 10f;
-    private IDamagable iDamageable;
-
     public Collider2D EnemyColl { get; set; }
+    [field: SerializeField] public float ReturnSpeed { get; set; } = 10f;
+
     private Collider2D coll;
+    private Rigidbody2D rb;
+    private bool isDeflected = false;
 
     private void Start()
     {
         coll = GetComponent<Collider2D>();
+        rb = GetComponent<Rigidbody2D>();
         IgnoreCollisionWithEnemyToggle();
 
-        Destroy(gameObject, 2.5f);
+        Destroy(gameObject, 4f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        iDamageable = collision.gameObject.GetComponent<IDamagable>();
-
-        if (iDamageable != null)
+        if (isDeflected && collision.CompareTag("Enemigo"))
         {
-            iDamageable.TomarDaño(daño);
-            Destroy(gameObject);
+            IDamagable iDamageable = collision.GetComponent<IDamagable>();
+            if (iDamageable != null)
+            {
+                iDamageable.TomarDaño(daño);
+                Destroy(gameObject);
+            }
+        }
+        else if (!isDeflected && collision.CompareTag("Player"))
+        {
+            IDamagable iDamageable = collision.GetComponent<IDamagable>();
+            if (iDamageable != null)
+            {
+                iDamageable.TomarDaño(daño);
+                Destroy(gameObject);
+            }
         }
         else if (collision.CompareTag("Ground"))
         {
@@ -35,13 +49,16 @@ public class EnemyProjectile : MonoBehaviour
 
     private void IgnoreCollisionWithEnemyToggle()
     {
-        if (!Physics2D.GetIgnoreCollision(coll, EnemyColl))
+        if (EnemyColl != null && coll != null)
         {
             Physics2D.IgnoreCollision(coll, EnemyColl, true);
         }
-        else
-        {
-            Physics2D.IgnoreCollision(coll, EnemyColl, false);
-        }
+    }
+
+    public void Deflect(Vector2 direction)
+    {
+        isDeflected = true;
+        rb.velocity = direction.normalized * ReturnSpeed;
+
     }
 }

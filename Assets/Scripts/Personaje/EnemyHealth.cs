@@ -26,5 +26,8 @@ public class EnemyHealth : MonoBehaviour, IDamagable
     {
         animator.SetTrigger("Death");
     }
-
+    public float GetHealth()
+    {
+        return vida;
+    }
 }

@@ -22,6 +22,7 @@ public class BossOneAbility : MonoBehaviour
             if (colisiones.CompareTag("Player"))
             {
                 colisiones.GetComponent<FightPlayer>().TomarDaño(daño);
+                //FightPlayer.Instance.HitStopTime(0, 5, 0.5f);
             }
         }
     }

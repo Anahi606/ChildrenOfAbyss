@@ -9,6 +9,11 @@ public class HeroKnight : MonoBehaviour {
     [SerializeField] bool       m_noBlood = false;
     [SerializeField] GameObject m_slideDust;
 
+    [Header("Deflect Settings")]
+    [SerializeField] private Transform deflectRange;
+    [SerializeField] private float deflectRadius = 1.5f;
+
+
     private Animator            m_animator;
     private Rigidbody2D         m_body2d;
     private Sensor_HeroKnight   m_groundSensor;
@@ -19,7 +24,8 @@ public class HeroKnight : MonoBehaviour {
     private bool                m_isWallSliding = false;
     private bool                m_grounded = false;
     private bool                m_rolling = false;
-    private int                 m_facingDirection = 1;
+    private bool                isBlocking = false;
+    public int                  m_facingDirection = 1;
     private int                 m_currentAttack = 0;
     private float               m_timeSinceAttack = 0.0f;
     private float               m_delayToIdle = 0.0f;
@@ -70,22 +76,22 @@ public class HeroKnight : MonoBehaviour {
         // -- Handle input and movement --
         float inputX = Input.GetAxis("Horizontal");
 
-        // Swap direction of sprite depending on walk direction
-        if (inputX > 0)
+        if (!isBlocking) // Solo permite el movimiento si no está bloqueando
         {
-            GetComponent<SpriteRenderer>().flipX = false;
-            m_facingDirection = 1;
-        }
-            
-        else if (inputX < 0)
-        {
-            GetComponent<SpriteRenderer>().flipX = true;
-            m_facingDirection = -1;
-        }
+            if (inputX > 0)
+            {
+                GetComponent<SpriteRenderer>().flipX = false;
+                m_facingDirection = 1;
+            }
+            else if (inputX < 0)
+            {
+                GetComponent<SpriteRenderer>().flipX = true;
+                m_facingDirection = -1;
+            }
 
-        // Move
-        if (!m_rolling )
-            m_body2d.velocity = new Vector2(inputX * m_speed, m_body2d.velocity.y);
+            if (!m_rolling)
+                m_body2d.velocity = new Vector2(inputX * m_speed, m_body2d.velocity.y);
+        }
 
         //Set AirSpeed in animator
         m_animator.SetFloat("AirSpeedY", m_body2d.velocity.y);
@@ -95,19 +101,8 @@ public class HeroKnight : MonoBehaviour {
         m_isWallSliding = (m_wallSensorR1.State() && m_wallSensorR2.State()) || (m_wallSensorL1.State() && m_wallSensorL2.State());
         m_animator.SetBool("WallSlide", m_isWallSliding);
 
-        //Death
-        if (Input.GetKeyDown("e") && !m_rolling)
-        {
-            m_animator.SetBool("noBlood", m_noBlood);
-            m_animator.SetTrigger("Death");
-        }
-            
-        //Hurt
-        else if (Input.GetKeyDown("q") && !m_rolling)
-            m_animator.SetTrigger("Hurt");
-
         //Attack
-        else if(Input.GetMouseButtonDown(0) && m_timeSinceAttack > 0.25f && !m_rolling)
+        if(Input.GetMouseButtonDown(0) && m_timeSinceAttack > 0.25f && !m_rolling)
         {
             m_currentAttack++;
 
@@ -131,11 +126,15 @@ public class HeroKnight : MonoBehaviour {
         {
             m_animator.SetTrigger("Block");
             m_animator.SetBool("IdleBlock", true);
+            isBlocking = true;
+            DeflectProjectiles();
         }
 
         else if (Input.GetMouseButtonUp(1))
+        {
             m_animator.SetBool("IdleBlock", false);
-
+            isBlocking = false;
+        }
         // Roll
         else if (Input.GetKeyDown("left shift") && !m_rolling && !m_isWallSliding)
         {
@@ -172,6 +171,29 @@ public class HeroKnight : MonoBehaviour {
                     m_animator.SetInteger("AnimState", 0);
         }
     }
+    private void DeflectProjectiles()
+    {
+        Collider2D[] hits = Physics2D.OverlapCircleAll(deflectRange.position, deflectRadius);
+        foreach (Collider2D hit in hits)
+        {
+            IDeflectable deflectable = hit.GetComponent<IDeflectable>();
+            if (deflectable != null)
+            {
+                Vector2 deflectDirection = (transform.position - hit.transform.position).normalized;
+                deflectable.Deflect(deflectDirection);
+            }
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (deflectRange != null)
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(deflectRange.position, deflectRadius);
+        }
+    }
+
 
     // Animation Events
     // Called in slide animation.

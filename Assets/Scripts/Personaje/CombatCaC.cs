@@ -8,11 +8,23 @@ public class CombatCaC : MonoBehaviour
     [SerializeField] private float radioGolpe;
     [SerializeField] private float dañoGolpe;
 
+    private HeroKnight heroKnight;
+
+    private void Start()
+    {
+        heroKnight = GetComponent<HeroKnight>();
+    }
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
             Golpe();
+        }
+
+        if (heroKnight != null)
+        {
+            controladorGolpe.localPosition = new Vector3(heroKnight.m_facingDirection * Mathf.Abs(controladorGolpe.localPosition.x), controladorGolpe.localPosition.y, controladorGolpe.localPosition.z);
         }
     }
 
@@ -31,8 +43,10 @@ public class CombatCaC : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(controladorGolpe.position, radioGolpe);
+        if (controladorGolpe != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(controladorGolpe.position, radioGolpe);
+        }
     }
-
 }
