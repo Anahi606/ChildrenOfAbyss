@@ -2224,6 +2224,14 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9043920546160527475, guid: a4b4a6d32bcb19248a754d6602ffc7e4, type: 3}
+      propertyPath: m_jumpForce
+      value: 6.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9043920546160527475, guid: a4b4a6d32bcb19248a754d6602ffc7e4, type: 3}
+      propertyPath: m_rollForce
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9043920546160527475, guid: a4b4a6d32bcb19248a754d6602ffc7e4, type: 3}
       propertyPath: deflectRange
       value: 
       objectReference: {fileID: 1511356705}
@@ -2584,6 +2592,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 143258070599880984, guid: f1bc76dfbd8243b40b62301ace651519, type: 3}
+      propertyPath: timeBtwAttacks
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4567760030414514540, guid: f1bc76dfbd8243b40b62301ace651519, type: 3}
       propertyPath: m_Name
       value: Necromancer
@@ -2634,6 +2646,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7303706029735918257, guid: f1bc76dfbd8243b40b62301ace651519, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7907674460925743506, guid: f1bc76dfbd8243b40b62301ace651519, type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7907674460925743506, guid: f1bc76dfbd8243b40b62301ace651519, type: 3}
+      propertyPath: m_BodyType
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

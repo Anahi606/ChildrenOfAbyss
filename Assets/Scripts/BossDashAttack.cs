@@ -28,7 +28,7 @@ public class BossDashAttack : MonoBehaviour
 
     private void Update()
     {
-        if (canDash && bossOne != null && bossOne.GetHealth() <= 230)
+        if (canDash && bossOne != null && bossOne.GetHealth() <= 300)
         {
             StartCoroutine(PrepareForDash());
         }

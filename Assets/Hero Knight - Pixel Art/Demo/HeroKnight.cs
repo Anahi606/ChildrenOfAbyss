@@ -139,10 +139,10 @@ public class HeroKnight : MonoBehaviour {
         else if (Input.GetKeyDown("left shift") && !m_rolling && !m_isWallSliding)
         {
             m_rolling = true;
+            m_rollCurrentTime = 0.0f;
             m_animator.SetTrigger("Roll");
             m_body2d.velocity = new Vector2(m_facingDirection * m_rollForce, m_body2d.velocity.y);
         }
-            
 
         //Jump
         else if (Input.GetKeyDown("space") && m_grounded && !m_rolling)
